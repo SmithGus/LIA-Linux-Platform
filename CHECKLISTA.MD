@@ -5,15 +5,13 @@ CHECKLISTA.md
 > Period: 6 veckor (heltid)  
 > Mål: Installera, konfigurera och dokumentera DHCP, DNS, Syslog, Zabbix på Ubuntu Server
 
-## 🧭 FÖRBEREDELSE
+#  FÖRBEREDELSE
 
-- [ ] Skapa GitHub-konto
+- [X] Skapa GitHub-konto
 - [ ] Installera Git på Ubuntu-servern
 - [ ] Skapa nytt GitHub-repo för projektet
 - [ ] Klona projektet till servern (`git clone ...`)
 - [ ] Skapa mappstruktur enligt projektplan
-
----
 
 # VECKA 1 – Projektplanering
 
@@ -22,8 +20,6 @@ CHECKLISTA.md
 - [ ] Skapa nätverksdesign (topologi) och spara som `topologi.png`
 - [ ] Skriv `README.md` med projektbeskrivning
 - [ ] Push alla filer till GitHub
-
----
 
 # VECKA 2 – Installation och härdning
 
@@ -36,8 +32,6 @@ CHECKLISTA.md
 - [ ] Ta skärmbilder på installation och inställningar
 - [ ] Push till GitHub
 
----
-
 # VECKA 3 – DHCP & DNS
 
 - [ ] Installera `isc-dhcp-server`
@@ -47,8 +41,6 @@ CHECKLISTA.md
 - [ ] Testa `dig`, `nslookup` mot servern
 - [ ] Beskriv redundans (teoretiskt)
 - [ ] Push zonfiler + konfig till GitHub
-
----
 
 #  VECKA 4 – Syslog + Automatisering
 
@@ -60,8 +52,6 @@ CHECKLISTA.md
 - [ ] Testa båda skript via cron
 - [ ] Push skript + konfigfiler
 
----
-
 #  VECKA 5 – Zabbix & notifiering
 
 - [ ] Installera Zabbix-server + agent
@@ -70,8 +60,6 @@ CHECKLISTA.md
 - [ ] Skapa och exportera egen Zabbix-template
 - [ ] Dokumentera Zabbix-inställningar i `zabbix-konfig.md`
 - [ ] Push exportfil + dokumentation
-
----
 
 #  VECKA 6 – Test, felsökning & slutrapport
 
@@ -84,10 +72,7 @@ CHECKLISTA.md
 - [ ] Genomför demo via Zoom/Teams
 - [ ] Push allt till GitHub
 
----
-
-#  VG-extra (frivilligt men starkt rekommenderat)
-
+#  VG-extra 
 - [ ] Implementera TLS-krypterad syslog (RFC 5425)
 - [ ] Beskriv redundans med sekundär DNS (teoretiskt)
 - [ ] Använd `cron` för automatisering
