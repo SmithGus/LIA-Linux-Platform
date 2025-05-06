@@ -18,11 +18,13 @@ LIA-period: 6 veckor (heltid)
 
 ## Använda tekniker
 
-- Ubuntu Server LTS  
 - Git och GitHub  
 - Bash-skript  
 - SSH-nyckelautentisering, UFW, fail2ban  
-- VirtualBox eller VMware för virtuell miljö
+- Operativsystem: Ubuntu Server 22.04.5 LTS (Jammy Jellyfish)
+- Virtualiseringsplattform: VMware Workstation Pro 17
+- Arkitektur: 64-bit
+- Kärnversion: Linux 6.8 (HWE)
 
 ## Projektstruktur
 
