@@ -67,3 +67,11 @@ Projektet syftar till att bygga och driftsätta en säker Linux-baserad servermi
 - Git och GitHub för versionskontroll  
 - Bash-skript  
 - Dokumentation i Markdown
+
+## Systeminformation
+
+- Operativsystem: Ubuntu Server 22.04.5 LTS (64-bit)
+- ISO-fil: ubuntu-22.04.5-live-server-amd64.iso
+- Virtualiseringsmiljö: VMware Workstation 17 Pro
+- Värdoperativsystem: Windows 11 Home 64-bit
+
