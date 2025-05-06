@@ -49,3 +49,29 @@ Denna mapp innehåller installationsguide för labbservern i LIA-projektet.
 ## Snap-paket
 
 - Inga snap-paket installerades vid installationen
+
+## Vanliga problem
+
+### Fel vid avmontering av installationsmedium
+
+I slutet av installationen kan följande felmeddelande visas:
+
+[FAILED] Failed unmounting /cdrom.
+Please remove the installation medium, then press ENTER:
+
+
+#### Orsak
+Installationsprogrammet försöker avmontera ISO-filen, men eftersom den fortfarande är ansluten i den virtuella maskinen misslyckas det.
+
+#### Lösning
+1. Stäng av den virtuella maskinen i VMware.
+2. Gå till VM-inställningarna.
+3. Välj **CD/DVD (IDE)**.
+4. Avmarkera alternativet **"Connect at power on"**.
+5. Starta om maskinen.
+
+Systemet ska nu starta från den installerade hårddisken utan problem.
+
+
+
+
