@@ -60,7 +60,10 @@ Projektet syftar till att bygga och driftsätta en säker Linux-baserad servermi
 
 ## Verktyg och resurser
 
-- Ubuntu Server LTS (VM via VirtualBox eller VMware)  
+- Operativsystem: Ubuntu Server 22.04.5 LTS (Jammy Jellyfish) 
+- Installationsmetod: VMware Workstation Pro 17
+- Arkitektur: 64-bit (amd64)
+- Kärnversion: Linux 6.8 (HWE-kärna)
 - Git och GitHub för versionskontroll  
 - Bash-skript  
 - Dokumentation i Markdown
