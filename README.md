@@ -52,7 +52,7 @@ LIA-period: 6 veckor (heltid)
 ## Status
 
 - [x] Projektstart och GitHub klar  
-- [ ] Serverinstallation  
+- [x] Serverinstallation  
 - [ ] Tjänstekonfiguration  
 - [ ] Automatisering och loggning  
 - [ ] Slutrapport och presentation
