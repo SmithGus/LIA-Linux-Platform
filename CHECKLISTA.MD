@@ -8,24 +8,24 @@ CHECKLISTA.md
 #  FÖRBEREDELSE
 
 - [X] Skapa GitHub-konto
-- [ ] Installera Git på Ubuntu-servern
-- [ ] Skapa nytt GitHub-repo för projektet
-- [ ] Klona projektet till servern (`git clone ...`)
-- [ ] Skapa mappstruktur enligt projektplan
+- [X] Installera Git på Ubuntu-servern
+- [X] Skapa nytt GitHub-repo för projektet
+- [X] Klona projektet till servern (`git clone ...`)
+- [X] Skapa mappstruktur enligt projektplan
 
 # VECKA 1 – Projektplanering
 
-- [ ] Skriv klart `projektplan.md`
-- [ ] Skriv `riskanalys.md` (minst 3 risker + åtgärder)
-- [ ] Skapa nätverksdesign (topologi) och spara som `topologi.png`
-- [ ] Skriv `README.md` med projektbeskrivning
-- [ ] Push alla filer till GitHub
+- [X] Skriv klart `projektplan.md`
+- [X] Skriv `riskanalys.md` (minst 3 risker + åtgärder)
+- [X] Skapa nätverksdesign (topologi) och spara som `topologi.png`
+- [X] Skriv `README.md` med projektbeskrivning
+- [X] Push alla filer till GitHub
 
 # VECKA 2 – Installation och härdning
 
-- [ ] Installera Ubuntu Server i VM (VirtualBox/VMware)
-- [ ] Skapa ny sudo-användare
-- [ ] Aktivera SSH-nyckelbaserad inloggning
+- [X] Installera Ubuntu Server i VM (VirtualBox/VMware)
+- [X] Skapa ny sudo-användare
+- [X] Aktivera SSH-nyckelbaserad inloggning
 - [ ] Installera och konfigurera UFW (brandvägg)
 - [ ] Installera och konfigurera fail2ban
 - [ ] Skapa `hardening_checklist.md`
