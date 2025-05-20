@@ -28,7 +28,7 @@ CHECKLISTA.md
 - [X] Aktivera SSH-nyckelbaserad inloggning
 - [X] Installera och konfigurera UFW (brandvägg)
 - [X] Installera och konfigurera fail2ban
-- [ ] Skapa `hardening_checklist.md`
+- [X] Skapa `hardening_checklist.md`
 - [ ] Ta skärmbilder på installation och inställningar
 - [ ] Push till GitHub
 
