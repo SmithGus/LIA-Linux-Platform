@@ -32,7 +32,7 @@ Zabbix Server   |  10051  |    TCP  |   Övervakning via Zabbix
 - `sudp ufw enable`
 
 Se `04_scripts/setup_ufw.sh`för automatiserad konfiguration. 
-
+```
 
 
 
