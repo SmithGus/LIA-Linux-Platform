@@ -26,8 +26,8 @@ CHECKLISTA.md
 - [X] Installera Ubuntu Server i VM (VirtualBox/VMware)
 - [X] Skapa ny sudo-användare
 - [X] Aktivera SSH-nyckelbaserad inloggning
-- [ ] Installera och konfigurera UFW (brandvägg)
-- [ ] Installera och konfigurera fail2ban
+- [X] Installera och konfigurera UFW (brandvägg)
+- [X] Installera och konfigurera fail2ban
 - [ ] Skapa `hardening_checklist.md`
 - [ ] Ta skärmbilder på installation och inställningar
 - [ ] Push till GitHub
