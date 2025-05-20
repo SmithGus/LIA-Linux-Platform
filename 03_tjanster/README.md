@@ -33,4 +33,23 @@ Zabbix Server   |  10051  |    TCP  |   Övervakning via Zabbix
 
 Se `04_scripts/setup_ufw.sh`för automatiserad konfiguration. 
 
+## Fail2ban - SSH-skydd
+
+Fail2ban installerades för att skydda SSH från bruteforce-försök.
+
+## Innehåll
+[sshd]
+enabled = true
+port = ssh
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 60
+findtime = 60
+
+Fail2ban startades och verifierades med:
+- `sudo systemctl status fail2ban`
+- `sudo fail2ban-client status`
+- `sudo fail2ban-client status sshd`
+
 
