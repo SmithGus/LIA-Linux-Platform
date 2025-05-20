@@ -8,7 +8,7 @@ UFW används för att:
 - Blockera all oönskad inkommande traffik
 - Tillåta endast definerad tjänster
 
-### Tillåtna portar
+## Tillåtna portar
 
 Tjänst   |   Port   |   Protokoll   |   Syfte
 
@@ -30,18 +30,21 @@ Zabbix Server   |  10051  |    TCP  |   Övervakning via Zabbix
 - `sudo ufw allow https`
 - `sudo ufw allow 10051/tcp`
 - `sudp ufw enable`
-
-Se `04_scripts/setup_ufw.sh`för automatiserad konfiguration. 
 ```
 
+Script: `04_scripts/setup_ufw.sh`för automatiserad konfiguration. 
 
 
 
-## Fail2ban - SSH-skydd
 
-Fail2ban installerades för att skydda SSH från bruteforce-försök.
 
-## Innehåll
+## Fail2ban - Skydd mot inloggningsattacker
+
+Syfte: Blockera IP-adresser som misslyckas logga in för många gånger.
+
+Konfiguration: /etc/fail2ban/jail.local
+
+## Inställningar
 [sshd]
 enabled = true
 port = ssh
@@ -55,5 +58,10 @@ Fail2ban startades och verifierades med:
 - `sudo systemctl status fail2ban`
 - `sudo fail2ban-client status`
 - `sudo fail2ban-client status sshd`
+
+Script: `setup_fail2ban.sh` finns i 04_scripts
+
+
+
 
 
