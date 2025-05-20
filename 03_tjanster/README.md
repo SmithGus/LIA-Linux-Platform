@@ -62,6 +62,14 @@ Fail2ban startades och verifierades med:
 Script: `setup_fail2ban.sh` finns i 04_scripts
 
 
+## SSH-nyckelbaserad inloggning
+
+För att verifiera att SSH-inloggning sker med nyckel (inte lösenord)
+
+```bash
+sudo cat ~/.ssh/authorized_keys
+```
+Detta visar att en nyckel är registrerad för användaren och används vid inloggning.
 
 
 
