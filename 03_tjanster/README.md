@@ -104,4 +104,20 @@ sudo dhcpd -t
 Tjänsten visade active (running) och lyssnar på interface "ens33" 
 
 
+## DHCP-server - isc-dhcp-server
 
+DHCP Installerades och konfigurerades automatiskt med hjälp av scriptet `setup_dhcp.sh`i `04_scripts`
+
+Scriptet:
+- Installerar `ìsc-dhcp-server`
+- Uppdaterar gränssnittet till `ens33`
+- Skapar en enkel `/etc/dhcp/dhcpd.conf`
+- Startar och aktiverar tjänsten
+
+## Verifiering
+
+```bash
+sudo systemctl status isc-dhcp-server
+sudo dhcpd -t
+```
+Tjänsten visar `active (running)`och lyssnar på interface `ens33`
