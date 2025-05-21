@@ -54,7 +54,7 @@ CHECKLISTA.md
 
 #  VECKA 5 – Zabbix & notifiering
 
-- [ ] Installera Zabbix-server + agent
+- [ ] Installera Zabbix-server + agent (via DOCKER-COMPOSE)
 - [ ] Lägg till minst 1 host (t.ex. dig själv)
 - [ ] Skapa notifiering (e-post/SMS om möjligt)
 - [ ] Skapa och exportera egen Zabbix-template
