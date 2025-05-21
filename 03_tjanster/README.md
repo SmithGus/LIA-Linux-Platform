@@ -72,4 +72,36 @@ sudo cat ~/.ssh/authorized_keys
 Detta visar att en nyckel är registrerad för användaren och används vid inloggning.
 
 
+## DHCP - Automatisk IP-adresshantering
+
+### Syfte
+DHCP används för att automatiskt tilldela IP-adresser till klienter.
+
+### Installerad programvara
+- isc-dhcp-server
+
+### Konfigurationsfil
+**Plats: `/etc/dhcp/dhcpd.conf`**
+
+```bash
+subnet 192.168.181.0 netmask 255.255.255.0 {
+  range 192.168.181.100 192.168.181.150;
+  option routers 192.168.181.1;
+  option domain-name-servers 8.8.8.8;
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+```
+
+Plats: /etc/default/isc-dhcp-server
+INTERFACESv4="ens33"
+
+Verifiering:
+
+Sudo systemctl status isc-dhcp-server
+sudo dhcpd -t 
+
+Tjänsten visade active (running) och lyssnar på interface "ens33" 
+
+
 
