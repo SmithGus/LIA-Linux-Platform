@@ -34,8 +34,8 @@ CHECKLISTA.md
 
 # VECKA 3 – DHCP & DNS
 
-- [ ] Installera `isc-dhcp-server`
-- [ ] Skapa och testa `dhcpd.conf`
+- [X] Installera `isc-dhcp-server`
+- [X] Skapa och testa `dhcpd.conf`
 - [ ] Installera och konfigurera BIND9 (DNS)
 - [ ] Skapa intern zonfil + forwarder
 - [ ] Testa `dig`, `nslookup` mot servern
