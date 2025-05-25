@@ -39,6 +39,7 @@ CHECKLISTA.md
 - [X] Skapa och testa `dhcpd.conf`
 - [X] Installera och konfigurera BIND9 (DNS)
 - [X] Skapa intern zonfil + forwarder
+- [X] Skapa Master/Slave DNS för redudans
 - [X] Testa `dig`, `nslookup` mot servern
 - [ ] Beskriv redundans (teoretiskt)
 - [X] Push zonfiler + konfig till GitHub
