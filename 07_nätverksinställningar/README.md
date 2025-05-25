@@ -28,6 +28,43 @@ network:
       routes: 
 	- to: 0.0.0.0/0
 	  via: 192.168.181.2
+```
+
+
+## Lia-slave - Nätverksinställningar (DNS-backup)
+
+- **IP-adress:** 192.168.181.11/24
+- **Gateway:** ingen 
+- **DNS:** 192.168.181.10 (Lia-server)
+- **Nätverkskort:** ens33 (VMnet8-NAT)
+
+### Netplan - konfiguration
+
+```yaml
+network: 
+  version: 2
+  ethernets:
+    ens33:
+      dhcp4: no
+      addresses:
+        - 192.168.181.11/24
+      nameservers:
+        addresses:
+          - 192.168.181.10
+      routes:
+        - to: 0.0.0.0
+          via: 192.168.181.1
+```
+
+## Verifiering
+ping -c 3 192.168.181.10  #lia server
+
+
+
+
+
+
+
 
 ## Verifiering 
 
