@@ -138,7 +138,7 @@ zone "181.168.192.in-addr.arpa" {
 
 ---
 
-## 5. Internetuppslagning med forwarders
+## 4. Internetuppslagning med forwarders
 
 För att tillåta att DNS-masterservern (lia-server) vidarebefordrar DNS-förfrågningar till externa namnservrar (t.ex. Google eller Cloudflare) har vi aktiverat en forwarders-sektion i BIND-konfigurationen.
 
@@ -165,7 +165,7 @@ options {
 ---
 
 
-## 6. Verifiering
+## 5. Verifiering
 
 ### a) Testa zonöverföring (från lia-slave):
 ```bash
