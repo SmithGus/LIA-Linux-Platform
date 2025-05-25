@@ -28,8 +28,9 @@ CHECKLISTA.md
 - [X] Aktivera SSH-nyckelbaserad inloggning
 - [X] Installera och konfigurera UFW (brandvägg)
 - [X] Installera och konfigurera fail2ban
+- [X] Installera och konfigurera NTP
 - [X] Skapa `hardening_checklist.md`
-- [ ] Ta skärmbilder på installation och inställningar
+- [X] Ta skärmbilder på installation och inställningar
 - [ ] Push till GitHub
 
 # VECKA 3 – DHCP & DNS
