@@ -138,7 +138,34 @@ zone "181.168.192.in-addr.arpa" {
 
 ---
 
-## 4. Verifiering
+## 5. Internetuppslagning med forwarders
+
+För att tillåta att DNS-masterservern (lia-server) vidarebefordrar DNS-förfrågningar till externa namnservrar (t.ex. Google eller Cloudflare) har vi aktiverat en forwarders-sektion i BIND-konfigurationen.
+
+### Redigerad fil: `/etc/bind/named.conf.options`
+
+```bash
+options {
+    directory "/var/cache/bind";
+
+    forwarders {
+        8.8.8.8;
+        1.1.1.1;
+    };
+
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+    listen-on { any; };
+    allow-query { any; };
+};
+
+```
+
+---
+
+
+## 6. Verifiering
 
 ### a) Testa zonöverföring (från lia-slave):
 ```bash
