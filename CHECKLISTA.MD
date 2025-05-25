@@ -31,17 +31,17 @@ CHECKLISTA.md
 - [X] Installera och konfigurera NTP
 - [X] Skapa `hardening_checklist.md`
 - [X] Ta skärmbilder på installation och inställningar
-- [ ] Push till GitHub
+- [X] Push till GitHub
 
 # VECKA 3 – DHCP & DNS
 
 - [X] Installera `isc-dhcp-server`
 - [X] Skapa och testa `dhcpd.conf`
-- [ ] Installera och konfigurera BIND9 (DNS)
-- [ ] Skapa intern zonfil + forwarder
-- [ ] Testa `dig`, `nslookup` mot servern
+- [X] Installera och konfigurera BIND9 (DNS)
+- [X] Skapa intern zonfil + forwarder
+- [X] Testa `dig`, `nslookup` mot servern
 - [ ] Beskriv redundans (teoretiskt)
-- [ ] Push zonfiler + konfig till GitHub
+- [X] Push zonfiler + konfig till GitHub
 
 #  VECKA 4 – Syslog + Automatisering
 
