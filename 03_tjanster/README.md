@@ -122,3 +122,61 @@ sudo systemctl status isc-dhcp-server
 sudo dhcpd -t
 ```
 Tjänsten visar `active (running)`och lyssnar på interface `ens33`
+
+
+
+# NTP-konfiguration med Chrony
+
+Denna konfiguration syftar till att synkronisera systemtid mellan mina två servrar i ett lokalt nätverk. 
+
+- **lia-server** agerar som NTP-master (anslutern till internet) 
+- **lia-slave** synkar tid från lia-server
+
+---
+
+## nätverksinställningar
+
+Server:		Gränssnitt: 	IP-adress: 	Kommentar:
+
+Lia-server	ens37		192.168.181.10  NTP-server (har kontakt med internet) 
+
+Lia-slave	ens33		192.168.181.11	synkar tid från lia-server (har inget internet)
+
+---
+
+## Steg 1 - installera chrony
+
+```bash
+sudo apt install chrony
+```
+
+På lia-slave behövde vi skicka chrony installationsfillen från lia-servern eftersom lia-slave inte har internet åtkomst. Därefter installerades den med: 
+
+sudo dpkg -i chrony_*.deb 
+
+Lia-server som NTP-server
+/etc/chrony/chrony,conf:
+allow 192.168.181.0/24
+
+starta om tjänsten: 
+
+sudo systemctl restart chrony
+
+Tillåt trafiken i UFW
+
+sudo ufw allow 123/udp
+
+Steg 3 - lia-slave som NTP-klient
+server 192.168.181.10 iburst
+
+
+Verifiering:
+chrony sources
+chronyc tracking   
+
+ 
+
+
+
+
+
