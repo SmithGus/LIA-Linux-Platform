@@ -175,6 +175,112 @@ chrony sources
 chronyc tracking   
 
  
+## Central loggning med rsyslog och logrotate
+
+### Syfte
+Målet är att samla in loggar centralt från `lia-slave`till `lia-server`med hjälp av `rsyslog`, och sedan hantera loggfiflerna med `logrotate`. 
+
+---
+
+### Server (lia-server)
+
+### 1. Installera rsyslog o skapa loggmapp
+
+```bash
+sudo apt install rsyslog -y
+sudo mkdir -p /var/log/remote
+sudo chown syslog:adm /var/log/remote
+sudo ufw /allow 514/udp
+```
+### 2. konfigurera rsyslog
+
+Fil: /etc/rsyslog.d/10-remote.conf
+
+module(load="imudp")
+input(type="imudp" port="514")
+
+$template RemoteLogs,"/var/log/remote/%fromhost-ip%.log"
+*.* ?RemoteLogs
+
+--- 
+
+Starta om tjänsten:
+
+sudo systemctl restart rsyslog
+
+--- 
+
+### 3. konfigurera logrotade 
+
+Installera logrotate: 
+
+sudo apt install logrotate -y
+
+Skapa fil: /etc/logrotade.d/remote-logs
+
+/var/log/remote/*.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 syslog adm
+} 
+
+Testkörning: 
+sudo logrotate -f /etc/loogrotate.d/remote-logs
+
+--- 
+
+
+### Klient (lia-slave)
+
+
+## 1. installera rsyslog manuellt
+
+Eftersom lia-slave saknar internet, laddades .deb-paketet för rsyslog ner på lia-server med:
+
+apt download rsyslog
+
+Därefter överfördes paketet till lia-slave via SCP:
+
+scp rsyslog_*.deb lia-slave@192.168.181.11:/home/lia-slave/
+
+Installationen på lia-slave:
+
+sudo dpkg -i rsyslig_*.deb
+
+## Skapa klientkonfig
+
+Fil: /etc/rsyslog.d/50-remote.conf
+
+*.* @192.168.181.10:514  #riktad till lia-server
+
+Starta om tjänsten:
+
+sudo systemctl restart rsyslog
+
+
+Test och verifiering:
+
+Skicka testlogg från lia-slave:
+logger "testlogg från lia-slave"
+
+Kontrollera på lia-server:
+ls /var/log/remote/
+tail /var/log/remote/192.168.181.11.log
+
+Notering: 
+- Lia-srver samlar loggar från flera klienter i separata filer med hjälv av %fromhost-ip%
+- lia-slave, behöver ingen egen logrotate eftersom inga loggar lagras lokalt. 
+- Installationen av rsyslog på lia-slave genomfördes via manuell överföring från lia-server på grund av birst på internetanslutning. 
+
+--- 
+
+
+
+
 
 
 
