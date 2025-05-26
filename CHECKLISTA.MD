@@ -46,8 +46,8 @@ CHECKLISTA.md
 
 #  VECKA 4 – Syslog + Automatisering
 
-- [ ] Installera och konfigurera `rsyslog`
-- [ ] Konfigurera `logrotate` för logghantering
+- [X] Installera och konfigurera `rsyslog`
+- [X] Konfigurera `logrotate` för logghantering
 - [ ] Skriv `backup-configs.sh` (säkerhetskopiering)
 - [ ] Skriv `check-services.sh` (status → syslog)
 - [ ] Lägg skripten i `04_scripts/` och kommentera dem
