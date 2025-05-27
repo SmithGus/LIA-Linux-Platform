@@ -1,4 +1,11 @@
 #!/bin/bash
+# backup-configs.sh – säkerhetskopierar konfigfiler
+# Körs via cron varje natt kl 02:00
+# Cronrad: 0 2 * * * /home/localadmin/LIA-Linux-Platform/04_scripts/backup-configs.sh >> /var/log/backup-configs.log 2>&1
+
+
+
+#!/bin/bash
 #backup-configs.sh
 # enkel säkerhetskopiering av viktiga konfigfiler
 
