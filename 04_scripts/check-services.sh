@@ -1,4 +1,11 @@
 #!/bin/bash
+# check-services.sh – kontrollerar tjänststatus och loggar till syslog
+# Körs via cron varje hel timme
+# Cronrad: 0 * * * * /home/localadmin/LIA-Linux-Platform/04_scripts/check-services.sh >> /var/log/check-services.log 2>&1
+
+
+
+#!/bin/bash
 # check-services.sh
 # Enkel kontroll av viktiga tjänster med loggning till syslog
 
