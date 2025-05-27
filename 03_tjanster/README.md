@@ -281,6 +281,58 @@ Notering:
 
 
 
+## Cron: Automatiska uppgifter
+
+Två viktiga cron-jobb har lagts till på `lia-server` för att automatisera säkerhetskopiering och tjänsteövervakning.
+
+### 1. backup-configs.sh
+
+**Syfte:** Säkerhetskopierar viktiga systemfiler till `/var/backups/configs-YYYYMMDD_HHMMSS`.
+
+**Schema:** Körs varje natt kl. 02:00.
+
+```cron
+0 2 * * * /home/localadmin/LIA-Linux-Platform/04_scripts/backup-configs.sh >> /var/log/backup-configs.log 2>&1
+
+---
+
+2. check-services.sh
+
+Syfte: Kontrollerar status för systemtjänster och loggar resultatet till syslog.
+
+Schema: Körs varje hel timme.
+
+0 * * * * /home/localadmin/LIA-Linux-Platform/04_scripts/check-services.sh >> /var/log/check-services.log 2>&1
+
+0 * * * * /home/localadmin/LIA-Linux-Platform/04_scripts/check-services.sh >> /var/log/check-services.log 2>&1
+
+
+Loggfiler:
+
+    /var/log/backup-configs.log
+
+    /var/log/check-services.log
+
+    Samt inlägg i /var/log/syslog via logger
+
+
+Redigering av root's crontab
+
+För att redigera och kontrollera rootens cron:
+
+sudo crontab -e
+sudo crontab -l
+
+Versionshantering
+
+Skriptfilerna som körs via cron ligger i:
+
+LIA-Linux-Platform/04_scripts/
+
+De är versionerade i GitHub och har getts körbehörighet via:
+
+chmod +x backup-configs.sh
+chmod +x check-services.sh
 
 
 
