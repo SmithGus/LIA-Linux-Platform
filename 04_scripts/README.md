@@ -45,3 +45,30 @@ Om backupkatalogen inte kan skapas loggas ett felmeddelande. Saknade filer flagg
 Exempel på loggrad i syslog:
 
 [backup-configs] Backup klar: /var/backups/configs-20250527_103212 (23 
+
+
+
+## backup-bind-slave.sh
+
+Detta script säkerhetskopierar viktiga BIND9-konfigurationsfiler på **LIA-slave**-servern. Eftersom denna DNS-slavserver synkroniserar zonfiler från en DNS-master är det oftast inte nödvändigt att inkludera zonfiler – men det kan vara bra att dokumentera och spara konfigurationen lokalt för kontroll, felsökning eller historik.
+
+### Funktion
+- Skapar en backupkatalog baserat på datum och tid.
+- Kopierar följande:
+  - `/etc/bind/`
+  - `/etc/hostname`
+  - `/etc/resolv.conf`
+  - `/etc/systemd/resolved.conf`
+
+### Exempel
+
+```bash
+$ sudo ./backup-bind-slave.sh
+Backup klar: /var/backups/bind-slave-20250527_095950
+```
+
+Lagringsplats
+
+Alla backupfiler sparas under:
+
+/var/backups/bind-slave-YYYYMMDD_HHMMSS/
