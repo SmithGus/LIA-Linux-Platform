@@ -14,16 +14,18 @@ services:
 
   zabbix-server:
     image: zabbix/zabbix-server-mysql:alpine-latest
+    depends_on:
+      - mysql
     environment:
       DB_SERVER_HOST: mysql
       MYSQL_DATABASE: zabbix
       MYSQL_USER: zabbix
       MYSQL_PASSWORD: zabbixpass
-    depends_on:
-      - mysql
     ports:
       - "10051:10051"
     restart: unless-stopped
+    command: >
+      sh -c "sleep 30 && docker-entrypoint.sh"
 
   zabbix-web:
     image: zabbix/zabbix-web-nginx-mysql:alpine-latest
