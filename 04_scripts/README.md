@@ -72,3 +72,33 @@ Lagringsplats
 Alla backupfiler sparas under:
 
 /var/backups/bind-slave-YYYYMMDD_HHMMSS/
+
+
+
+---
+
+## Schemalagda uppgifter med Cron
+
+Två viktiga skript är schemalagda via `crontab`:
+
+| Syfte              | Tid                    | Kommando                                                        |
+|-------------------|------------------------|-----------------------------------------------------------------|
+| Säkerhetskopiering av konfigurationer | Varje natt kl 02:00 | `/home/localadmin/LIA-Linux-Platform/04_scripts/backup-configs.sh` |
+| Kontroll av systemtjänster              | Varje timme           | `/home/localadmin/LIA-Linux-Platform/04_scripts/check-services.sh`  |
+
+Varje körning loggas till respektive loggfil:
+
+- `/var/log/backup-configs.log`
+- `/var/log/check-services.log`
+
+Redigering av `crontab` sker med:
+```bash
+sudo crontab -e
+
+Exempel på crontab-innehåll:
+
+# Backup varje natt kl 02:00
+0 2 * * * /home/localadmin/LIA-Linux-Platform/04_scripts/backup-configs.sh >> /var/log/backup-configs.log 2>&1
+
+# Kontrollera tjänster varje timme
+0 * * * * /home/localadmin/LIA-Linux-Platform/04_scripts/check-services.sh >> /var/l
