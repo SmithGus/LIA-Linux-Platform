@@ -1,7 +1,8 @@
-version: '3.5'
+version: '3.8'
 
 services:
-  mysql:
+  mysql1:
+    container_name: mysql1
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: zabbixpass
@@ -11,13 +12,16 @@ services:
     volumes:
       - ./mysql_data:/var/lib/mysql
     restart: unless-stopped
+    networks:
+      - zabbix_net
 
   zabbix-server:
+    container_name: zabbix-server
     image: zabbix/zabbix-server-mysql:alpine-latest
     depends_on:
-      - mysql
+      - mysql1
     environment:
-      DB_SERVER_HOST: mysql
+      DB_SERVER_HOST: mysql1
       MYSQL_DATABASE: zabbix
       MYSQL_USER: zabbix
       MYSQL_PASSWORD: zabbixpass
@@ -26,11 +30,14 @@ services:
     restart: unless-stopped
     command: >
       sh -c "sleep 30 && docker-entrypoint.sh"
+    networks:
+      - zabbix_net
 
   zabbix-web:
+    container_name: zabbix-web
     image: zabbix/zabbix-web-nginx-mysql:alpine-latest
     environment:
-      DB_SERVER_HOST: mysql
+      DB_SERVER_HOST: mysql1
       MYSQL_DATABASE: zabbix
       MYSQL_USER: zabbix
       MYSQL_PASSWORD: zabbixpass
@@ -41,3 +48,11 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
+    networks:
+      - zabbix_net
+
+volumes:
+  mysql_data:
+
+networks:
+  zabbix_net:
