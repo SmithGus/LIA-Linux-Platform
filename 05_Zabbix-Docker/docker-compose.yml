@@ -66,8 +66,22 @@ services:
       retries: 5
     # Den här kollar att webbgränssnittet svarar korrekt
 
+  zabbix-agent:
+    image: zabbix/zabbix-agent:latest
+    container_name: zabbix-agent
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_HOSTNAME=lia-server
+    ports:
+      - "10050:10050"
+    networks:
+      - zabbix-net
+
+
+
 volumes:
   mysql_data:
 
 networks:
   zabbix-net:
+    external: true
