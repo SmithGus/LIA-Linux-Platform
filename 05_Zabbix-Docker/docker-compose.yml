@@ -66,7 +66,7 @@ services:
       retries: 5
     # Den här kollar att webbgränssnittet svarar korrekt
 
-    zabbix-agent:
+  zabbix-agent:
     image: zabbix/zabbix-agent:latest
     container_name: zabbix-agent
     environment:
