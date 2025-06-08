@@ -81,7 +81,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+    # Den här kollar att agenten svarar korrekt
 
 
 volumes:
