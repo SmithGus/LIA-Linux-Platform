@@ -88,5 +88,5 @@ volumes:
   mysql_data:
 
 networks:
-  05_zabbix-docker_zabbix-net:
+  zabbix-net: 
     external: true
