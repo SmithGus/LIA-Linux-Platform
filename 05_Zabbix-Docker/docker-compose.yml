@@ -19,11 +19,28 @@ services:
       timeout: 5s
       retries: 5
 
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog:latest
+    ports:
+      - "8025:8025"      # Web UI
+      - "1025:1025"      # SMTP
+    networks:
+      - zabbix-net
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "1025"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
   zabbix-server:
     container_name: zabbix-server
     image: zabbix/zabbix-server-mysql:alpine-7.2-latest
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
+      mailhog:
+        condition: service_healthy
     environment:
       DB_SERVER_HOST: mysql
       MYSQL_DATABASE: zabbix
@@ -83,10 +100,9 @@ services:
       retries: 5
     # Den här kollar att agenten svarar korrekt
 
-
 volumes:
   mysql_data:
 
 networks:
-  zabbix-net: 
+  zabbix-net:
     external: true
