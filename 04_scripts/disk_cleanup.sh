@@ -41,3 +41,5 @@ sudo systemctl restart rsyslog
 echo "[9/9] Rensning färdig. Utrymme före: $BEFORE | efter: $AFTER"
 echo "=== Diskrensning klar: $(date) ==="
 echo ""
+
+logger "CRON: disk_cleanup.sh kördes via cron - $(date)"
