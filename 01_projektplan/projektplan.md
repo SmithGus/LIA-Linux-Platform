@@ -9,11 +9,11 @@ Sätta upp en säker Linuxbaserad servermiljö med centrala nätverkstjänster, 
 
 ## Mål
 - Ubuntu Server LTS installation
-- Docker Compose (alla containrar)
+- Docker Compose 
 - Chrony (NTP-server)
-- DHCP (container)
-- DNS (BIND9, container)
-- Syslog (rsyslog, container)
+- DHCP 
+- DNS (BIND9)
+- Syslog (rsyslog)
 - Zabbix server & agent (container)
 - Mailhog (container, notifieringstest)
 - Automatiseringsskript: backup & tjänststatus
