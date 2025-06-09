@@ -1,155 +1,216 @@
-# Installationsguide
+# Installationsguide – LIA-projekt
 
-Denna guide beskriver grundinstallationen av labbservern för LIA-projektet.
+Den här guiden beskriver hur du installerar och konfigurerar labbservern (lia-server) samt viktiga tjänster för LIA-projektet.  
+Alla steg är anpassade för Ubuntu Server 22.04.5 LTS.
 
 ---
 
-## 1. Systeminformation
+## 1. Systemöversikt
 
-- **Operativsystem:** Ubuntu Server 22.04.5 LTS (64-bit)
-- **Installationstyp:** Minimal med OpenSSH-server
-- **Virtuell miljö:** VMware Workstation 17 Pro (Windows 11 Host)
+| Tjänst        | Var/Typ          | Kommentar                                 |
+|---------------|------------------|-------------------------------------------|
+| DHCP-server   | lia-server (APT) | isc-dhcp-server, lokal nätutdelning       |
+| DNS-master    | lia-server (APT) | BIND9, primär zonhantering                |
+| DNS-slave     | lia-slave (APT)  | BIND9, redundans/slavkoppling             |
+| NTP-server    | lia-server (APT) | Chrony                                    |
+| Syslog        | lia-server (APT) | rsyslog + logrotate, central loggning     |
+| Zabbix Server | Docker Compose   | Övervakning, körs som container           |
+| Zabbix Agent  | Docker Compose   | Agent för övervakning                     |
+| Mailhog       | Docker Compose   | Lokal testmailserver för notifieringar     |
+
+---
+
+## 2. Grundinstallation av Ubuntu Server
+
 - **ISO-fil:** `ubuntu-22.04.5-live-server-amd64.iso`
+- **Installationstyp:** Minimal ("Minimal installation"), välj med OpenSSH-server
+- **Virtuell miljö:** VMware Workstation 17 Pro  
+- **Värd:** Windows 11
+
 
 ---
 
-## 2. Språk & Tangentbord
+## 3. Grundläggande systeminställningar
 
-- **Språk:** Engelska
-- **Tangentbord:** Svenska
+### Språk & Tangentbord
 
----
+- Språk: Engelska
+- Tangentbord: Svenska
 
-## 3. Uppdatering av system
+### Systemuppdatering
 
-- Ubuntu föreslog uppgradering till 24.04 – detta avböjdes.
-- Installerad version enligt ISO: 22.04.5 LTS.
-- Efter installation:  
-  `sudo apt update && sudo apt upgrade -y`
-
----
-
-## 4. Nätverkskonfiguration
-
-- DHCP användes för första installationen (internet fungerade direkt).
-- Statisk IP och övriga nätverksinställningar konfigureras senare i projektet.
+```sh
+sudo apt update && sudo apt upgrade -y
+```
 
 ---
 
-## 5. Lagringskonfiguration
+## 4. Nätverks- och lagringsinställningar
 
-- **Disk:** `/dev/sda` (20 GB)
-- **LVM:** Aktiverad
-- **Root-partition:** `/` – 10 GB, ext4
-- **Boot-partition:** `/boot` – 1.7 GB, ext4
-- **Kryptering:** LUKS ej aktiverat
-- **Metod:** Guidat installationsval (standard)
+- DHCP används automatiskt vid installation.
+- Statisk IP-adress och VLAN konfigureras i `/etc/netplan/` efteråt.
+- Disk: `/dev/sda` (20 GB), LVM aktiverat, root `/` (10 GB), boot `/boot` (1.7 GB), ingen kryptering.
 
 ---
 
-## 6. Användarkonto
+## 5. Användarkonto
 
-- **Namn:** Gustav Smith
-- **Servernamn:** `lia-server`
-- **Användarnamn:** `localadmin`
-- **Lösenord:** `l1a!LINUX` (tillfälligt, byts efter installation)
-- **Behörighet:** Sudo
+- Användarnamn: `localadmin`
+- Servernamn: `lia-server`
+- Sudo rättigheter: Ja
 
 ---
 
-## 7. SSH-konfiguration
+## 6. SSH-konfiguration
 
-- **OpenSSH-server:** Installerad
-- **Lösenordsautentisering:** Tillåten vid installation (ska ändras till SSH-nyckel senare)
-- **Tips:** Byt lösenord och konfigurera SSH-nyckel så snart som möjligt.
-
----
-
-## 8. Snap-paket
-
-- Inga snap-paket installerades vid installationen.
-
----
-
-## 9. Installation av Docker och Docker Compose
-
-- Installera Docker:
-  ```
-  sudo apt update
-  sudo apt install docker.io
-  ```
-- Installera Docker Compose:
-  ```
-  sudo apt install docker-compose
-  ```
-- Lägg till användaren i docker-gruppen (valfritt):
-  ```
-  sudo usermod -aG docker $USER
-  ```
-- Kontrollera installation:
-  ```
-  docker --version
-  docker compose version
+- OpenSSH-server installerad
+- Lösenordsautentisering aktiverad (byt till SSH-nyckel så snart som möjligt!)
+- Exempel:  
+  ```sh
+  ssh-keygen
+  ssh-copy-id localadmin@lia-server
+  # Stäng sedan av lösenordsinloggning i /etc/ssh/sshd_config
   ```
 
 ---
 
-## 10. Installation av Chrony (NTP-server)
+## 7. Installation av tjänster via APT (på lia-server)
 
-- Installera Chrony:
-  ```
-  sudo apt install chrony
-  ```
+### DHCP-server
+
+```sh
+sudo apt install isc-dhcp-server
+```
+- Konfigurationsfil: `/etc/dhcp/dhcpd.conf`
+- Ange rätt nätverksinterface i `/etc/default/isc-dhcp-server`
+
+### DNS-server (BIND9 – Master)
+
+```sh
+sudo apt install bind9 bind9utils bind9-doc
+```
+- Konfigurationsfiler: `/etc/bind/named.conf.local`, zonfiler i `/etc/bind/zones/`
+- Skapa och konfigurera minst en framåt- och en omvänd zon.
+- Se till att DNS-slave (lia-slave) får slava zonen:
+  - Lägg till `allow-transfer` och `also-notify` med lia-slave:s IP.
+
+### NTP-server (Chrony)
+
+```sh
+sudo apt install chrony
+```
+- Konfigurationsfil: `/etc/chrony/chrony.conf`
 - Starta och aktivera tjänsten:
-  ```
+  ```sh
   sudo systemctl enable --now chrony
   ```
-- Kontrollera status:
-  ```
-  systemctl status chrony
-  ```
+
+### Syslog
+
+```sh
+sudo apt install rsyslog logrotate
+```
+- Central loggning konfigureras i `/etc/rsyslog.conf` och `/etc/rsyslog.d/`
+- Loggrotation i `/etc/logrotate.conf` och `/etc/logrotate.d/`
 
 ---
 
-## 11. Mailhog (för test av e-post)
+## 8. DNS-slave (lia-slave)
 
-- Mailhog körs som container via Docker Compose.
-- Lägg till detta i din `docker-compose.yml`:
-    ```yaml
-    mailhog:
-      image: mailhog/mailhog
-      ports:
-        - "8025:8025"   # Webbgränssnitt
-        - "1025:1025"   # SMTP
+På servern **lia-slave**:
+
+```sh
+sudo apt install bind9 bind9utils
+```
+- Lägg till slavzoner i `/etc/bind/named.conf.local`:
+    ```text
+    zone "example.local" {
+      type slave;
+      masters { <lia-server-IP>; };
+      file "/var/cache/bind/example.local";
+    };
     ```
-- Starta Mailhog:
-  ```
-  docker compose up -d mailhog
+- Kontrollera att rättigheter och IP för zonöverföring stämmer med master.
+
+---
+
+## 9. Docker och Docker Compose (på lia-server)
+
+### Installera Docker
+
+```sh
+sudo apt install docker.io
+```
+
+### Installera Docker Compose
+
+```sh
+sudo apt install docker-compose
+```
+- Lägg till användaren i docker-gruppen (valfritt):
+  ```sh
+  sudo usermod -aG docker $USER
   ```
 
 ---
 
-## 12. Vanliga problem
+## 10. Docker Compose-tjänster (på lia-server)
 
-### Fel vid avmontering av installationsmedium
 
-I slutet av installationen kan följande felmeddelande visas:
+```yaml
+version: '3'
+services:
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:latest
+    ports:
+      - "10051:10051"
+    environment:
+      - DB_SERVER_HOST=postgres
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbixpass
+      - POSTGRES_DB=zabbix
+    depends_on:
+      - postgres
+    restart: unless-stopped
 
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbixpass
+      - POSTGRES_DB=zabbix
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  zabbix-agent:
+    image: zabbix/zabbix-agent:latest
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+    restart: unless-stopped
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    restart: unless-stopped
 ```
-[FAILED] Failed unmounting /cdrom.
-Please remove the installation medium, then press ENTER:
+
+**Starta alla containrar:**
+```sh
+docker compose up -d
 ```
 
-**Orsak:**  
-Installationsprogrammet försöker avmontera ISO-filen, men eftersom den fortfarande är ansluten i den virtuella maskinen misslyckas det.
+---
 
-**Lösning:**  
-1. Stäng av den virtuella maskinen i VMware.
-2. Gå till VM-inställningarna.
-3. Välj **CD/DVD (IDE)**.
-4. Avmarkera alternativet **"Connect at power on"**.
-5. Starta om maskinen.
 
-Systemet ska nu starta från den installerade hårddisken utan problem.
+## 12. Checklista – efter installation
+
+- [ ] Byt alla tillfälliga lösenord och spara dem säkert.
+- [ ] Testa alla tjänster var för sig (DHCP, DNS, Chrony, Syslog, Zabbix, Mailhog).
+- [ ] Kontrollera DNS-redundans genom att slå av master och se att slav svarar.
+- [ ] Kontrollera att Zabbix och Mailhog är åtkomliga på respektive port.
+- [ ] Kontrollera att loggning och tidsynk fungerar på klienter.
 
 ---
