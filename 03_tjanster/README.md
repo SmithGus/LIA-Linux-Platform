@@ -1,29 +1,38 @@
-# 03 – Tjänster: DHCP, DNS, Syslog, Zabbix
+# 03 – Nätverkstjänster: DHCP, DNS, Syslog, Zabbix
 
-Denna mapp innehåller dokumentation för fyra centrala nätverkstjänster som driftsattes på lia-servern. Varje tjänst har en egen undermapp med konfigurationsfiler, testresultat och verifiering.
+Denna mapp innehåller dokumentation för fyra centrala nätverkstjänster som installerats och konfigurerats i projektet. Målet är att visa hur dessa tjänster samverkar för att skapa ett stabilt och övervakat nätverk i en Linuxbaserad miljö.
 
 ---
 
 ## Tjänsteöversikt
 
-| Tjänst  | Syfte                                         | Verktyg / Paket              |
-|---------|-----------------------------------------------|------------------------------|
-| DHCP    | Automatisk IP-adresshantering för klienter    | isc-dhcp-server              |
-| DNS     | Intern namnuppslag + vidarekoppling till internet | BIND9                   |
-| Syslog  | Central logginsamling + loggrotation          | rsyslog + logrotate          |
-| Zabbix  | Övervakning, triggers, e-postlarm             | Zabbix Server + Agent        |
+| Tjänst  | Funktion                                     | Programvara         |
+|---------|----------------------------------------------|---------------------|
+| DHCP    | Automatisk IP- och gateway-distribution      | isc-dhcp-server     |
+| DNS     | Intern domänhantering och vidarekoppling     | BIND9               |
+| Syslog  | Samlar loggar centralt + rotation            | rsyslog, logrotate  |
+| Zabbix  | Övervakning med triggers och e-postlarm      | zabbix-server/agent |
 
 ---
 
-## Mappstruktur
+## Mappstruktur och innehåll
 
-- [`dhcp/`](./dhcp) – DHCP-konfiguration, test med ipconfig
-- [`dns/`](./dns) – Zonfiler, slavserver, `dig` och `AXFR`
-- [`syslog/`](./syslog) – Rsyslog och logrotate-verifiering
-- [`zabbix/`](./zabbix) – Zabbix-server + agent, notifieringstest
+Varje tjänst har en egen undermapp som innehåller:
 
-Varje mapp innehåller:
-- Viktiga `.conf`-filer
-- Kodkommentarer
-- Testkommandon
-- Verifieringsbilder (där det är relevant)
+- Konfigurationsfiler (`*.conf`) med kommentarer
+- Test- och verifieringskommandon
+- Eventuella verifieringsbilder
+- En README-fil med pedagogisk förklaring
+
+Strukturen är följande:
+
+```text
+03_tjanster/
+├── dhcp/
+│   └── dhcpd.conf, verifiering.png, README.md
+├── dns/
+│   └── named.conf.local, zonfiler, README.md
+├── syslog/
+│   └── rsyslog.conf, logrotate.conf, README.md
+├── zabbix/
+│   └── zabbix_server.conf, screenshots/, README.md
