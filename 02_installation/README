@@ -1,40 +1,49 @@
 # 02 – Installation & Härdning
 
-Den här delen beskriver hur Ubuntu Server installerades, konfigurerades och säkrades i labbmiljön.
+Denna mapp innehåller dokumentation för installation och härdning av Ubuntu Server inför tjänstedrift.
 
-##  Installation
+---
+
+##  Systeminfo
 
 - **OS:** Ubuntu Server 22.04.5 LTS
 - **Plattform:** VMware Workstation 17
-- **Disk:** 30 GB (ökades vid behov)
 - **Nätverk:**  
-  - `ens33` (NAT, internet)  
-  - `ens37` (internt labbnät)
+  - `ens33`: NAT (internet)  
+  - `ens37`: isolerat labbnät
+- **Disk:** 30 GB (ökades vid behov)
 
-##  Härdning och säkerhet
+---
 
-- **Inaktivera root-inlogg via SSH**
-- **SSH-nyckelautentisering istället för lösenord**
-- **UFW-brandvägg:**
-  - Endast portar för tjänster (514, 22, 123, 10050 etc.)
-- **Fail2ban:**
-  - Skydd mot brute force via SSH
+## Säkerhetsinställningar
 
-##  NTP – Tidssynk
+- Root-inloggning inaktiverad via SSH
+- SSH-nyckelautentisering (lösenord avstängt)
+- UFW-brandvägg:
+  - Tillåter endast portar 22, 514, 123 etc.
+- Fail2ban för att skydda SSH
+- Tidssynkronisering med Chrony
 
-- Installerat `chrony`
-- Tillåter 192.168.181.0/24 i `/etc/chrony/chrony.conf`
-- Verifierat med `chronyc tracking`
+---
 
-##  Filer i denna mapp
+## Viktiga filer i denna mapp
 
-- `chrony.conf`
-- `ufw-rules.txt`
-- `sshd_config`
-- `fail2ban-jail.local`
+- `chrony.conf` – NTP-konfiguration
+- `ufw-rules.txt` – exporterade brandväggsregler
+- `sshd_config` – SSH-inställningar
+- `fail2ban-jail.local` – aktiva skydd mot intrång
+- `interface-info.txt` – IP- och nätverkskortsinformation
 
-##  Testad
+---
 
-- Ping och tidssynk fungerar
-- SSH via nyckel testad
-- Brandvägg aktiverad och loggar port-blockeringar
+## Verifiering
+
+| Test                     | Resultat                      |
+|--------------------------|-------------------------------|
+| `chronyc tracking`       | Tidssynk OK                   |
+| SSH med nyckel           | Lösenord = nekas              |
+| `ufw status`             | Brandvägg aktiv               |
+| `fail2ban-client status` | Aktiva skydd registrerade     |
+
+---
+
