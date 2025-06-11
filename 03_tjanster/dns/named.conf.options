@@ -1,0 +1,8 @@
+options {
+    directory "/var/cache/bind";
+    allow-transfer { 192.168.181.11; };    // Tillåt slav
+    also-notify { 192.168.181.11; };       // Informera slav om ändringar
+    recursion yes;
+    allow-query { any; };
+    dnssec-validation no;
+};
