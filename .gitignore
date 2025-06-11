@@ -1,0 +1,7 @@
+#ignorera zabbix UI-filer
+05_Zabbix-Docker/
+*.deb
+*.tar.gz
+*.iso
+*.img
+*.log
