@@ -47,22 +47,40 @@ Konfiguration: /etc/dhcp/dhcpd.conf
  Subnätet som används i labbnätet
 subnet 192.168.181.0 netmask 255.255.255.0 {
 
+
    IP-range som tilldelas klienter
   range 192.168.181.50 192.168.181.250;
+
 
    Gateway (router) för klienterna
   option routers 192.168.181.1;
 
+
   DNS-server (t.ex. lokal BIND9-server)
   option domain-name-servers 192.168.181.10;
 
+
    Domännamn som används internt (valfritt)
   option domain-name "internal.local";
+
 
   Lease-tider (tidsgräns för IP-adress)
   default-lease-time 600;
   max-lease-time 7200;
 }
+
+
+### Konfiguration – /etc/dhcp/dhcpd.conf
+# Subnätdefinition
+subnet 192.168.181.0 netmask 255.255.255.0 {
+  range 192.168.181.50 192.168.181.250;       # IP-intervall som delas ut
+  option routers 192.168.181.1;               # Gateway
+  option domain-name-servers 192.168.181.10;  # Intern DNS
+  option domain-name "internal.local";        # Domännamn
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+
 
 
 
