@@ -15,7 +15,7 @@ Denna mapp innehåller dokumentation för fyra centrala nätverkstjänster som d
 
 ---
 
-## 📁 Mappstruktur
+## Mappstruktur
 
 - [`dhcp/`](./dhcp) – DHCP-konfiguration, test med ipconfig
 - [`dns/`](./dns) – Zonfiler, slavserver, `dig` och `AXFR`
