@@ -19,3 +19,7 @@ sudo apt update
 sudo apt install isc-dhcp-server
 ```
 
+## Exempelfil
+
+Se [dhcpd.conf](./dhcpd.conf) för fullständig konfigurationsfil.
+
