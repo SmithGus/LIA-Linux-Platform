@@ -1,0 +1,11 @@
+$TTL    604800
+@   IN  SOA lia-server.internal.local. root.internal.local. (
+             2         ; Serial
+        604800         ; Refresh
+         86400         ; Retry
+       2419200         ; Expire
+        604800 )
+
+@           IN  NS    lia-server.internal.local.
+10          IN  PTR   lia-server.internal.local.
+11          IN  PTR   lia-slave.internal.local.
