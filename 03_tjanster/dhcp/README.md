@@ -18,30 +18,30 @@ Installera DHCP-servern:
 sudo apt update
 sudo apt install isc-dhcp-server
 ```
----
+
 
 
 /etc/default/isc-dhcp-server:
 INTERFACESv4="ens37"
 
----
+
 
 Aktivera och starta tjänsten:
 sudo systemctl enable isc-dhcp-server
 sudo systemctl start isc-dhcp-server
 
----
+
 
 Kontrollera att tjänsten är igång:
 sudo systemctl status isc-dhcp-server
 
----
+
 
 Brandvägg (UFW)
 Öppna port 67/UDP för DHCP-servern:
 sudo ufw allow 67/udp
 
----
+
 
 Konfiguration: /etc/dhcp/dhcpd.conf
 # Subnätet som används i labbnätet
@@ -64,7 +64,7 @@ subnet 192.168.181.0 netmask 255.255.255.0 {
   max-lease-time 7200;
 }
 
----
+
 
 Verifiering:
 
