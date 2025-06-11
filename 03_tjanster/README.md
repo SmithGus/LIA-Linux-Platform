@@ -4,7 +4,7 @@ Denna mapp innehåller dokumentation för fyra centrala nätverkstjänster som d
 
 ---
 
-## 🧩 Tjänsteöversikt
+## Tjänsteöversikt
 
 | Tjänst  | Syfte                                         | Verktyg / Paket              |
 |---------|-----------------------------------------------|------------------------------|
