@@ -1,0 +1,32 @@
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), deny (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp (OpenSSH)           ALLOW IN    Anywhere                  
+80/tcp                     ALLOW IN    Anywhere                  
+443                        ALLOW IN    Anywhere                  
+10051/tcp                  ALLOW IN    Anywhere                  
+53/tcp                     ALLOW IN    192.168.181.11            
+53/udp                     ALLOW IN    192.168.181.11            
+123/udp                    ALLOW IN    Anywhere                  
+514/udp                    ALLOW IN    Anywhere                  
+8080/tcp                   ALLOW IN    Anywhere                  
+53/tcp                     ALLOW IN    192.168.181.0/24          
+53/udp                     ALLOW IN    192.168.181.0/24          
+8000/tcp                   ALLOW IN    Anywhere                  
+10050/tcp                  ALLOW IN    Anywhere                  
+3306/tcp                   ALLOW IN    Anywhere                  
+22/tcp (OpenSSH (v6))      ALLOW IN    Anywhere (v6)             
+80/tcp (v6)                ALLOW IN    Anywhere (v6)             
+443 (v6)                   ALLOW IN    Anywhere (v6)             
+10051/tcp (v6)             ALLOW IN    Anywhere (v6)             
+123/udp (v6)               ALLOW IN    Anywhere (v6)             
+514/udp (v6)               ALLOW IN    Anywhere (v6)             
+8080/tcp (v6)              ALLOW IN    Anywhere (v6)             
+8000/tcp (v6)              ALLOW IN    Anywhere (v6)             
+10050/tcp (v6)             ALLOW IN    Anywhere (v6)             
+3306/tcp (v6)              ALLOW IN    Anywhere (v6)             
+
