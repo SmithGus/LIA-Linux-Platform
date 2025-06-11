@@ -1,6 +1,6 @@
 # DHCP – Automatisk IP-adresshantering
 
-Denna mapp innehåller konfiguration och verifiering för DHCP-tjänsten isc-dhcp-server, installerad på lia-servern. DHCP gör att klienter automatiskt får rätt IP-adress, gateway och DNS-inställningar.
+Denna mapp innehåller konfiguration och verifiering för DHCP-tjänsten `isc-dhcp-server`, installerad på lia-servern. DHCP gör att klienter automatiskt får rätt IP-adress, gateway och DNS-inställningar.
 
 ---
 
@@ -10,11 +10,40 @@ DHCP används för att automatisera utdelning av IP-adresser i ett nätverk. Det
 
 ---
 
-## Konfigurationsfil: `dhcpd.conf`
+## Installation, aktivering och start
 
-Placering: `/etc/dhcp/dhcpd.conf`
+Installera DHCP-servern:
 
-```conf
+```bash
+sudo apt update
+sudo apt install isc-dhcp-server
+
+---
+
+
+/etc/default/isc-dhcp-server:
+INTERFACESv4="ens37"
+
+---
+
+Aktivera och starta tjänsten:
+sudo systemctl enable isc-dhcp-server
+sudo systemctl start isc-dhcp-server
+
+---
+
+Kontrollera att tjänsten är igång:
+sudo systemctl status isc-dhcp-server
+
+---
+
+Brandvägg (UFW)
+Öppna port 67/UDP för DHCP-servern:
+sudo ufw allow 67/udp
+
+---
+
+Konfiguration: /etc/dhcp/dhcpd.conf
 # Subnätet som används i labbnätet
 subnet 192.168.181.0 netmask 255.255.255.0 {
 
@@ -34,3 +63,12 @@ subnet 192.168.181.0 netmask 255.255.255.0 {
   default-lease-time 600;
   max-lease-time 7200;
 }
+
+---
+
+Verifiering:
+
+
+
+
+
